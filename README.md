@@ -1,5 +1,47 @@
-# multi-cluster-operator-new
-// TODO(user): Add simple overview of use/purpose
+# multi-cluster-operator
+multi cluster operator
+
+## How to test the operator
+
+1. Install Kind Locally and create two clusters 
+```
+kind create cluster --name main 
+kind create cluster --name sub
+```
+
+2. Make sure you are in main context 
+```
+kubectl config get-contexts         
+CURRENT   NAME        CLUSTER     AUTHINFO    NAMESPACE
+*         kind-main   kind-main   kind-main   
+          kind-sub    kind-sub    kind-sub   
+```
+
+3. Deploy operator
+```
+make install run
+```
+
+4. Deploy logforwarder into main cluster
+```
+kubectl apply -f config/samples
+```
+
+5. Verify objects in sub cluster
+```
+kubectl get all  --context kind-sub
+
+=== Result============
+NAME                            READY   STATUS      RESTARTS   AGE
+pod/logforwarder-sample-bkvnp   0/1     Completed   0          44m
+
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   2d6h
+
+NAME                            COMPLETIONS   DURATION   AGE
+job.batch/logforwarder-sample   1/1           7s         44m
+```
+
 
 ## Description
 // TODO(user): An in-depth paragraph about your project and overview of use
@@ -91,4 +133,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
