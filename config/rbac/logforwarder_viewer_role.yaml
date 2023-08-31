@@ -1,0 +1,27 @@
+# permissions for end users to view logforwarders.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: logforwarder-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: multi-cluster-operator-new
+    app.kubernetes.io/part-of: multi-cluster-operator-new
+    app.kubernetes.io/managed-by: kustomize
+  name: logforwarder-viewer-role
+rules:
+- apiGroups:
+  - multicluster.samanthajayasinghe.github.io
+  resources:
+  - logforwarders
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - multicluster.samanthajayasinghe.github.io
+  resources:
+  - logforwarders/status
+  verbs:
+  - get

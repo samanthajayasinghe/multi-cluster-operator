@@ -1,0 +1,13 @@
+apiVersion: multicluster.samanthajayasinghe.github.io/v1alpha1
+kind: LogForwarder
+metadata:
+  labels:
+    app.kubernetes.io/name: logforwarder
+    app.kubernetes.io/instance: logforwarder-sample
+    app.kubernetes.io/part-of: multi-cluster-operator-new
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: multi-cluster-operator-new
+  name: logforwarder-sample
+spec:
+  destination: test-dest
+  image: busybox
